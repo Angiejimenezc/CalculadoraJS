@@ -1,12 +1,18 @@
 //Create variables
 const buttonNum = document.getElementsByName("data-number");
+console.log(buttonNum);
 const buttonOper = document.getElementsByName("data-oper");
+console.log(buttonOper);
 const buttonEqual = document.getElementsByName("data-equal")[0];
+console.log(buttonEqual);
 const buttonClear = document.getElementsByName("data-clear")[0];
-let result = document.getElementById("result");
-let currentOper;
-let previusOper;
-let oper = undefined;
+console.log(buttonClear);
+
+var result = document.getElementById("result");
+console.log(result);
+var currentOper = "";
+var previewOper = "";
+var oper = undefined;
 
 //Create Events
 buttonNum.forEach(function (button) {
@@ -23,27 +29,68 @@ buttonOper.forEach(function (button) {
 
 buttonEqual.addEventListener("click", function () {
   calculate();
-  updateScreen();
+  updateDisplay();
 });
 
 buttonClear.addEventListener("click", function () {
   clear();
-  updateScreen();
+  updateDisplay();
 });
 
-//Method
+//funtions
 
 function addNum(num) {
-  currentOper = currentOper.t;
-  updateScreen();
+  currentOper = currentOper.toString() + num.toString();
+  updateDisplay();
+}
+
+function selectOper(op) {
+  if (currentOper === "") return;
+
+  if (previewOper !== "") {
+    calculate();
+  }
+
+  operation = op.toString();
+  previewOper = currentOper;
+  currentOper = "";
+}
+
+function calculate() {
+  var calculation;
+  //convierto a float
+  const preview = parseFloat(previewOper);
+  const current = parseFloat(currentOper);
+
+  if (isNaN(preview) || isNaN(current)) return;
+
+  switch (operation) {
+    case "+":
+      calculation = preview + current;
+      break;
+    case "-":
+      calculation = preview - current;
+      break;
+    case "x":
+      calculation = preview * current;
+      break;
+    case "/":
+      calculation = preview / current;
+      break;
+    default:
+      return;
+  }
+  currentOper = calculation;
+  operation = undefined;
+  previewOper = "";
 }
 
 function clear() {
   currentOper = "";
   previusOper = "";
-  oper = undefined;
+  oper = "";
 }
-
-function updateScreen() {
+function updateDisplay() {
   result.value = currentOper;
 }
+clear();
