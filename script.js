@@ -1,20 +1,17 @@
 //Create variables
-const buttonNum = document.getElementsByName("data-number");
-console.log(buttonNum);
-const buttonOper = document.getElementsByName("data-oper");
-console.log(buttonOper);
-const buttonEqual = document.getElementsByName("data-equal")[0];
-console.log(buttonEqual);
-const buttonClear = document.getElementsByName("data-clear")[0];
-console.log(buttonClear);
 
+const buttonNum = document.getElementsByName("data-number");
+const buttonOper = document.getElementsByName("data-oper");
+const buttonEqual = document.getElementsByName("data-equal")[0];
+const buttonClear = document.getElementsByName("data-clear")[0];
 var result = document.getElementById("result");
-console.log(result);
+
 var currentOper = "";
 var previewOper = "";
 var oper = undefined;
 
 //Create Events
+
 buttonNum.forEach(function (button) {
   button.addEventListener("click", function () {
     addNum(button.innerText);
@@ -37,7 +34,7 @@ buttonClear.addEventListener("click", function () {
   updateDisplay();
 });
 
-//funtions
+//Funtions
 
 function addNum(num) {
   currentOper = currentOper.toString() + num.toString();
@@ -46,11 +43,9 @@ function addNum(num) {
 
 function selectOper(op) {
   if (currentOper === "") return;
-
   if (previewOper !== "") {
     calculate();
   }
-
   operation = op.toString();
   previewOper = currentOper;
   currentOper = "";
